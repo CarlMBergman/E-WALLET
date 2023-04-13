@@ -31,16 +31,20 @@ function CardForm(props) {
 
     function onChangeCardNum(e) {
         const re = /^[0-9\b]+$/;
-
-        for (let i = -1; i < e.target.value.length; i++) {
-            const element = e.target.value[i];
-            if (e.target.value === '' || re.test(e.target.value)) {
-                props.setCardNum(e.target.value);
-            }
-            else if (element === " ") {
-                props.setCardNum(e.target.value);
+        if (e.target.value === "XXXX XXXX XXXX XXX") {
+            props.setCardNum("")
+        } else {
+            for (let i = -1; i < e.target.value.length; i++) {
+                const element = e.target.value[i];
+                if (e.target.value === '' || re.test(e.target.value)) {
+                    props.setCardNum(e.target.value);
+                }
+                else if (element === " ") {
+                    props.setCardNum(e.target.value);
+                }
             }
         }
+       
     };
 
     function valid_format(value) {
@@ -59,8 +63,7 @@ function CardForm(props) {
                  className='card-form__input-big'
                  name="cardNum" 
                  id="cardNum" 
-                 type="text" 
-                 placeholder='XXXX XXXX XXXX XXXX'
+                 type="text"
                  maxLength='19' 
                  value={ cardNum_format(props.fullCard.cardNum) }
                  onChange={ onChangeCardNum }
