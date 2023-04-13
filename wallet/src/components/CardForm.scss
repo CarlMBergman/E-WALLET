@@ -63,5 +63,8 @@
             background-color: white;
             color: black;
         }
+        &:nth-child(1) {
+            margin-top: -1rem;
+        }
     }
 }
