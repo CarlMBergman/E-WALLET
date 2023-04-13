@@ -5,4 +5,12 @@ function addCard(value) {
     }
 }
 
-export { addCard }
+function setActive(value) {
+    return {
+        type: 'SET-ACTIVE', 
+        payload: value
+    }
+}
+
+
+export { addCard, setActive }

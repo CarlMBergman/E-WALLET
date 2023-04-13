@@ -3,9 +3,9 @@
     color: #FFFF;
     border-radius: 8px;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.08);
-    padding: 1rem;
+    padding: 16px;
     margin: 1rem;
-    width: 382px;
+    width: 366px;
     height: 241px;
     display: flex;
     justify-content: space-between;
@@ -14,12 +14,12 @@
     font-family: 'PT Mono', monospace;
 
     &__vendor {
-        width: 382px;
+        width: 366px;
         display: flex;
         justify-content: space-between;
 
         &-vendor {
-            margin-top: .8rem;
+            margin-top: .5rem;
             align-self: flex-start;
         }
     }
@@ -29,7 +29,7 @@
     }
 
     &__info {
-        width: 382px;
+        width: 366px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -61,4 +61,8 @@
 
 .blockchain {
     background-color: #8B58F9;
+}
+
+.active {
+    grid-row: 1 / 9;
 }

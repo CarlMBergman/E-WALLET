@@ -12,6 +12,8 @@ function AddCard(props) {
     const [ccv, setCcv] = useState();
     const [vendor, setVendor] = useState('bitcoin');
 
+    
+
     let fullCard = {
         cardNum: cardNum,
         cardHolder: cardHolder,

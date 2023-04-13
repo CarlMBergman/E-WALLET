@@ -1,10 +1,18 @@
 import './Card.scss'
+import { useState } from 'react'
+import { setActive } from '../redux/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Card(props) {
+    const dispatch = useDispatch()
+
+    function handleActive() {
+        dispatch(setActive(props.fullCard.cardNum))
+    }
 
 
     return (
-        <article className={`card ${props.fullCard.vendor}`}>
+        <article className={`card ${props.fullCard.vendor} ${props.fullCard.isActive}`} onClick={ handleActive }>
             <div className='card__vendor'>
                 <img src="/src/assets/chip-dark.svg" alt="chip" />
                 <img className='card__vendor-vendor' src={`/src/assets/vendor-${props.fullCard.vendor}.svg`} alt="vendor" />
