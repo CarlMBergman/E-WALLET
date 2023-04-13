@@ -9,9 +9,14 @@ function CardForm(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    function handleClick(event) {
+    function handleAddClick(event) {
         event.preventDefault();
         dispatch(addCard(props.fullCard))
+        navigate('/')
+    }
+
+    function handleClick(event) {
+        event.preventDefault();
         navigate('/')
     }
 
@@ -25,7 +30,6 @@ function CardForm(props) {
         for (let i = 0; i < v.length; i += 4) {
           parts.push(v.substr(i, 4));
         }
-      
         return parts.length > 1 ? parts.join(" ") : value;
     }
 
@@ -44,8 +48,16 @@ function CardForm(props) {
                 }
             }
         }
-       
     };
+
+    function onChangeCardHolder(e) {
+        if (e.target.value === "FIRSTNAME LASTNAM") {
+            props.setCardHolder("")
+        }
+        else {
+            props.setCardHolder(e.target.value)
+        }
+    }
 
     function valid_format(value) {
         const v = value
@@ -78,7 +90,7 @@ function CardForm(props) {
                  name='holderName' 
                  id='holderName' 
                  value={ props.fullCard.cardHolder }
-                 onChange={(event) => props.setCardHolder(event.target.value)}
+                 onChange={ onChangeCardHolder }
                 />
             </div>
                 <div className='card-form__smallinputs'>
@@ -113,7 +125,8 @@ function CardForm(props) {
                         <option value="evil">EVIL CORP</option>
                     </select>
                 </div>
-                <button className='card-form__button' onClick={ handleClick }>ADD CARD</button>
+                <button className='card-form__button' onClick={ handleAddClick }>ADD CARD</button>
+                <button className='card-form__button' onClick={ handleClick }>CANCEL</button>
             </form>
     )
 }
