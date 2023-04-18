@@ -1,6 +1,7 @@
 import './App.scss'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Home from './views/Home'
 import AddCard from './views/AddCard'
 import Top from './components/Top'

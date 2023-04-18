@@ -1,15 +1,26 @@
 import './Card.scss'
-import { useState } from 'react'
-import { setActive } from '../redux/action';
+import { useState, useEffect } from 'react'
+import { setActive, removeCard, localStorageUpdate } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Card(props) {
     const dispatch = useDispatch()
 
     function handleActive() {
-        dispatch(setActive(props.fullCard.cardNum))
+        if (props.fullCard.isActive === 'notActive') {
+            dispatch(setActive(props.fullCard))
+            setTimeout(function(){
+                dispatch(localStorageUpdate())
+            }, 100)
+        }
     }
 
+    function handleRemove() {
+        dispatch(removeCard(props.fullCard))
+        setTimeout(function(){
+            dispatch(localStorageUpdate())
+        }, 100)
+    }
 
     return (
         <article className={`card ${props.fullCard.vendor} ${props.fullCard.isActive}`} onClick={ handleActive }>
@@ -28,7 +39,10 @@ function Card(props) {
                     <p>{ props.fullCard.valid }</p>
                 </div>
             </div>
+            <img className='card__removebtn' onClick={ handleRemove } src="/src/assets/transparentX.svg" alt="removebtn" />
         </article>
+        
+        
     )
 }
 

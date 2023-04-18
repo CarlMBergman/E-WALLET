@@ -6,7 +6,7 @@
 
     &__button {
         margin: 1rem;
-        width: 382px;
+        width: 22rem;
         height: 80px;
         border: 1px solid black;
         border-radius: 8px;
@@ -23,9 +23,16 @@
 
     &__heading {
         font-family: 'Source Sans Pro';
+        text-align: center;
         font-style: normal;
         font-weight: 600;
         font-size: 12px;
         color: rgba(34, 34, 34, 0.6);
+    }
+}
+
+@media screen and (max-width: 388px) {
+    .home__button {
+        width: 20rem;
     }
 }

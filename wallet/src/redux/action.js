@@ -12,5 +12,18 @@ function setActive(value) {
     }
 }
 
+function removeCard(value) {
+    return {
+        type: 'REMOVE-CARD',
+        payload: value
+    }
+}
 
-export { addCard, setActive }
+function localStorageUpdate() {
+    return {
+        type: 'UPDATE-LOCALSTORAGE'
+    }
+}
+
+
+export { addCard, setActive, removeCard, localStorageUpdate }

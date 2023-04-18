@@ -3,7 +3,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 396px;
+    max-width: 22rem;
+    margin-bottom: 2rem;
 
     &__label {
         font-family: 'PT Mono';
@@ -31,7 +32,7 @@
         height: 56px;
         border: 1px solid rgba(0, 0, 0, 0.8);
         border-radius: 8px;
-        // padding: 0 5px 0 5px;
+        text-transform: uppercase;
     }
 
     &__small {
@@ -49,7 +50,8 @@
 
     &__button {
         margin: 1rem;
-        width: 397px;
+        margin-bottom: 0rem;
+        width: 22rem;
         height: 80px;
         border: 1px solid black;
         border-radius: 8px;
@@ -63,8 +65,15 @@
             background-color: white;
             color: black;
         }
-        &:nth-child(1) {
-            margin-top: -1rem;
+    }
+}
+
+@media screen and (max-width: 388px) {
+    .card-form {
+        width: 20rem;
+        &__button {
+            width: 20rem;
         }
     }
+    
 }

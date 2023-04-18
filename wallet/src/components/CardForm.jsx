@@ -1,21 +1,47 @@
 import './CardForm.scss'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { addCard } from '../redux/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCard, localStorageUpdate } from '../redux/action';
 import { useState } from 'react';
 
 function CardForm(props) {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const cards    = useSelector((state) => { return state.cards })
+    const findCard = cards.find(({ cardNum }) => cardNum === props.fullCard.cardNum)
 
     function handleAddClick(event) {
         event.preventDefault();
-        dispatch(addCard(props.fullCard))
-        navigate('/')
+        if (props.fullCard.cardNum.length != 19 || props.fullCard.cardNum === 'XXXX XXXX XXXX XXXX' || props.fullCard.cardNum === '                   ' ) {
+            alert('Please write a valid card number!')
+        }
+        else if (findCard) {
+            alert('A card with this card number already exist!')
+        }
+        else if (props.fullCard.valid === 'MM/YY') {
+            alert('Please enter the expiry date')
+        }
+        else if (props.fullCard.cardHolder === 'FIRSTNAME LASTNAME') {
+            alert('Please enter a valid cardholder name')
+        }
+        else if (props.fullCard.ccv.length != 3 || props.fullCard.ccv === 'XXX') {
+            alert('Please enter a valid CCV')
+        }
+        else if (props.fullCard.vendor === 'evil' && props.fullCard.ccv != '666') {
+            alert('All cards from Devil Corp must have 666 as CCV number')
+        }
+        else {
+            dispatch(addCard(props.fullCard))
+            setTimeout(function(){
+                dispatch(localStorageUpdate())
+            }, 100)
+            navigate('/')
+        }
+        
     }
 
-    function handleClick(event) {
+    function handleCancelClick(event) {
         event.preventDefault();
         navigate('/')
     }
@@ -126,7 +152,7 @@ function CardForm(props) {
                     </select>
                 </div>
                 <button className='card-form__button' onClick={ handleAddClick }>ADD CARD</button>
-                <button className='card-form__button' onClick={ handleClick }>CANCEL</button>
+                <button className='card-form__button' onClick={ handleCancelClick }>CANCEL</button>
             </form>
     )
 }
