@@ -78,13 +78,11 @@ const reducer = (state = initialState, action) => {
                 })
             }
         case 'UPDATE-LOCALSTORAGE':
-            console.log('uppdaterar localstorage');
             localStorage.setItem('MY-WALLET-CARDS', JSON.stringify(state.cards))
     
         default:
             const cardsFromStorage = JSON.parse(localStorage.getItem('MY-WALLET-CARDS'));
             if (cardsFromStorage) {
-                console.log(cardsFromStorage);
                 return {
                     ...state,
                     cards: cardsFromStorage

@@ -11,7 +11,7 @@ function AddCard(props) {
     const [valid, setValid] = useState('MM/YY');
     const [ccv, setCcv] = useState('XXX');
     const [vendor, setVendor] = useState('bitcoin');
-
+    const [isActive, setIsActive] = useState('notActive')
     
 
     let fullCard = {
@@ -20,7 +20,7 @@ function AddCard(props) {
         valid: valid,
         ccv: ccv,
         vendor: vendor,
-        isActive: 'notActive'
+        isActive: isActive
     }
     useEffect(() => {
         props.setHeading('ADD A NEW BANK CARD')
@@ -37,6 +37,7 @@ function AddCard(props) {
              setValid={ setValid }
              setCcv={ setCcv }
              setVendor={ setVendor }
+             setIsActive={ setIsActive }
              fullCard={ fullCard }
             />
         </section>

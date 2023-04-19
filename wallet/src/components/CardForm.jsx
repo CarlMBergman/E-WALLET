@@ -2,7 +2,7 @@ import './CardForm.scss'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard, localStorageUpdate } from '../redux/action';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 function CardForm(props) {
     
@@ -10,6 +10,18 @@ function CardForm(props) {
     const dispatch = useDispatch();
     const cards    = useSelector((state) => { return state.cards })
     const findCard = cards.find(({ cardNum }) => cardNum === props.fullCard.cardNum)
+
+
+    function handleActive() {
+        if (cards.length === 0) {
+            props.setIsActive('active')
+        }
+    }
+
+    useEffect(() => {
+        handleActive()
+    }, [])
+
 
     function handleAddClick(event) {
         event.preventDefault();
@@ -29,7 +41,7 @@ function CardForm(props) {
             alert('Please enter a valid CCV')
         }
         else if (props.fullCard.vendor === 'evil' && props.fullCard.ccv != '666') {
-            alert('All cards from Devil Corp must have 666 as CCV number')
+            alert('All cards from Evil Corp must have 666 as CCV number')
         }
         else {
             dispatch(addCard(props.fullCard))
@@ -41,6 +53,7 @@ function CardForm(props) {
         
     }
 
+    
     function handleCancelClick(event) {
         event.preventDefault();
         navigate('/')
@@ -61,28 +74,20 @@ function CardForm(props) {
 
     function onChangeCardNum(e) {
         const re = /^[0-9\b]+$/;
-        if (e.target.value === "XXXX XXXX XXXX XXX") {
-            props.setCardNum("")
-        } else {
-            for (let i = -1; i < e.target.value.length; i++) {
-                const element = e.target.value[i];
-                if (e.target.value === '' || re.test(e.target.value)) {
-                    props.setCardNum(e.target.value);
-                }
-                else if (element === " ") {
-                    props.setCardNum(e.target.value);
-                }
+       
+        for (let i = -1; i < e.target.value.length; i++) {
+            const element = e.target.value[i];
+            if (e.target.value === '' || re.test(e.target.value)) {
+                props.setCardNum(e.target.value);
+            }
+            else if (element === " ") {
+                props.setCardNum(e.target.value);
             }
         }
     };
 
     function onChangeCardHolder(e) {
-        if (e.target.value === "FIRSTNAME LASTNAM") {
-            props.setCardHolder("")
-        }
-        else {
-            props.setCardHolder(e.target.value)
-        }
+        props.setCardHolder(e.target.value)
     }
 
     function valid_format(value) {
@@ -91,6 +96,20 @@ function CardForm(props) {
         .replace(/^./, "")
         .replace("-", "/")
         props.setValid(v)
+    }
+
+    function onChangeCcv(e) {
+        const re = /^[0-9\b]+$/;
+        for (let i = -1; i < e.target.value.length; i++) {
+            const element = e.target.value[i];
+            if (e.target.value === '' || re.test(e.target.value)) {
+                props.setCcv(e.target.value);
+            }
+            else if (element === " ") {
+                props.setCcv(e.target.value);
+            }
+        }
+
     }
 
     return (
@@ -103,6 +122,7 @@ function CardForm(props) {
                  id="cardNum" 
                  type="text"
                  maxLength='19' 
+                 onFocus={ () => props.setCardNum("")}
                  value={ cardNum_format(props.fullCard.cardNum) }
                  onChange={ onChangeCardNum }
                 />
@@ -116,6 +136,7 @@ function CardForm(props) {
                  name='holderName' 
                  id='holderName' 
                  value={ props.fullCard.cardHolder }
+                 onFocus={ () => props.setCardHolder("")}
                  onChange={ onChangeCardHolder }
                 />
             </div>
@@ -138,7 +159,9 @@ function CardForm(props) {
                          name="ccv" 
                          id="ccv"
                          maxLength="3"
-                         onChange={(event) => props.setCcv(event.target.value)}
+                         value={ props.fullCard.ccv }
+                         onFocus={ () => props.setCcv("")}
+                         onChange={ onChangeCcv }
                         />
                     </div>
                 </div>

@@ -1,7 +1,6 @@
 import './Card.scss'
-import { useState, useEffect } from 'react'
 import { setActive, removeCard, localStorageUpdate } from '../redux/action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function Card(props) {
     const dispatch = useDispatch()
@@ -11,7 +10,7 @@ function Card(props) {
             dispatch(setActive(props.fullCard))
             setTimeout(function(){
                 dispatch(localStorageUpdate())
-            }, 100)
+            }, 50)
         }
     }
 
@@ -19,7 +18,7 @@ function Card(props) {
         dispatch(removeCard(props.fullCard))
         setTimeout(function(){
             dispatch(localStorageUpdate())
-        }, 100)
+        }, 50)
     }
 
     return (
