@@ -34,10 +34,10 @@ function CardForm(props) {
         else if (props.fullCard.valid === 'MM/YY') {
             alert('Please enter the expiry date')
         }
-        else if (props.fullCard.cardHolder === 'FIRSTNAME LASTNAME') {
+        else if (props.fullCard.cardHolder === 'FIRSTNAME LASTNAME' || props.fullCard.cardHolder === "") {
             alert('Please enter a valid cardholder name')
         }
-        else if (props.fullCard.ccv.length != 3 || props.fullCard.ccv === 'XXX') {
+        else if (props.fullCard.ccv.length != 3 || props.fullCard.ccv === 'XXX' || props.fullCard.ccv === "") {
             alert('Please enter a valid CCV')
         }
         else if (props.fullCard.vendor === 'evil' && props.fullCard.ccv != '666') {
